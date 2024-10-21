@@ -1,5 +1,7 @@
 const { app, conn } = require('./server.js');
 
+require('./routes/almoxarifados.js');
+
 app.post('/login', async (req, res) => {
     let { login, senha } = req.body;
 
