@@ -29,7 +29,7 @@ server.listen(process.env.PORT, ( ) => {
 // Conexão Banco de Dados:
 const msyql = require('mysql2');
 
-const conn = msyql.createConnection(process.env.DBLINK)
+const conn = msyql.createConnection(process.env.DBURL)
 conn.connect(function(err){
     if(err) throw err;
     console.log('Banco de Dados conectado!!')
