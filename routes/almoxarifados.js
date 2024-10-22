@@ -4,7 +4,7 @@ const { app, conn } = require('../server.js');
 // Código Automático:
 app.get('/codigo/almoxarifados', async (req, res) => {
 
-    let [query] = await conn.promise().execute(`CALL codigo_almoxarifado ( );`);
+    let [query] = await conn.promise().execute('CALL codigo_almoxarifado ( );');
 
     res.send(query[0])
 });
@@ -12,9 +12,9 @@ app.get('/codigo/almoxarifados', async (req, res) => {
 // Pesquisa:
 app.post('/pesquisa/almoxarifados', async (req, res) => {
     let { pesquisa } = req.body;
-    pesquisa = String(pesquisa).replaceAll(' ','%|%');
+    pesquisa =  pesquisa ? String(pesquisa).replaceAll(' ','|') : '|';
 
-    let [query] = await conn.promise().execute(`CALL pesquisa_almoxarifado ( ? )`,
+    let [query] = await conn.promise().execute('CALL pesquisa_almoxarifado ( ? )',
         [pesquisa]
     );
 
@@ -40,3 +40,15 @@ app.post('/novo/almoxarifados', async (req, res) => {
         return
     }
 });
+
+
+// Consultar Registro:
+app.get('/consulta/almoxarifados/:id', async(req, res) => {
+    let { id } = req.params;
+
+    let [query] = await conn.promise().execute('CALL consultar_registro ( ? )',
+        [id]
+    )
+
+    res.send(query[0]);
+})
