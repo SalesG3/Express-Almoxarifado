@@ -46,7 +46,7 @@ app.post('/novo/almoxarifados', async (req, res) => {
 app.get('/consulta/almoxarifados/:id', async(req, res) => {
     let { id } = req.params;
 
-    let [query] = await conn.promise().execute('CALL consultar_registro ( ? )',
+    let [query] = await conn.promise().execute('CALL consultar_almoxarifado ( ? )',
         [id]
     )
 
